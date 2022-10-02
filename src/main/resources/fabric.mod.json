@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "yoinker",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Figura Avatar Yoinker",
+  "description": "Alows you to Yoink Figura Models",
   "authors": [
-    "Me!"
+    "Virusnest"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -19,17 +19,18 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "dev.virusnest.yoinker.Yoinker"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "yoinker.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.14.9",
     "fabric-api": "*",
     "minecraft": "~1.19",
+    "figura": ">=${figura}",
     "java": ">=17"
   },
   "suggests": {

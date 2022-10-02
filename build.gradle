@@ -9,8 +9,12 @@ targetCompatibility = JavaVersion.VERSION_17
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+figura = project.figura
 
 repositories {
+	maven { url 'https://jitpack.io' }
+	maven { url 'https://maven.terraformersmc.com/releases/' }
+	maven { url 'https://api.modrinth.com/maven' }
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -29,18 +33,25 @@ dependencies {
 
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
+	//modImplementation files("/Users/25kmaloney/figuralibs/figura-${project.figura_version}.jar")
+	modImplementation "com.github.Kingdom-of-The-Moon:FiguraRewriteRewrite:$figura"
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 }
 
 processResources {
-	inputs.property "version", project.version
+	Map<String, Object> properties = new HashMap<>()
 
+	properties.put("version", version)
+	properties.put("minecraft_version", minecraft_version)
+	properties.put("loader_version", loader_version)
+	properties.put("figura", figura)
+
+	properties.forEach((k, v) -> inputs.property(k, v.toString()))
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand properties
 	}
 }
-
 tasks.withType(JavaCompile).configureEach {
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
 	it.options.release = 17
